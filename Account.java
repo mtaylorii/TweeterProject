@@ -5,9 +5,9 @@ public class Account {
 	private String Password;
 	private String ProfileText;
 	private String ProfilePhotoPath;
-	private ArrayList<Twit> Twits;
-	private ArrayList<Account> SubscribedTo;
-	private ArrayList<Account> Subscribers;
+	private ArrayList<Twit> Twits = new ArrayList<Twit>();
+	private ArrayList<Account> SubscribedTo = new ArrayList<Account>();
+	private ArrayList<Account> Subscribers = new ArrayList<Account>();
 	
 	public String getUserName() { return this.UserName; }
 	public void setUserName(String s) { this.UserName = s; }
@@ -49,21 +49,30 @@ public class Account {
 	public ArrayList<Twit> getTwits(Account a) { return a.getTwits(); }
 	public String printTwitIdentifiers() { 
 		String result = "";
-		for (int i = 0; i < this.Twits.size(); ++i) result += Twits.get(i).getTwitIdentifier() + ",";
+		for (int i = 0; i < this.Twits.size(); ++i) {
+			if (i > 0) result += ",";
+			result += Twits.get(i).getTwitIdentifier();
+		}
 		return result;
 	}
 	
 	public ArrayList<Account> getSubscribedTo() { return this.SubscribedTo; }
 	public String printSubscribedTo() { 
 		String result = "";
-		for (int i = 0; i < this.SubscribedTo.size(); ++i) result += SubscribedTo.get(i).getUserName() + ",";
+		for (int i = 0; i < this.SubscribedTo.size(); ++i) {
+			if (i > 0) result += ",";
+			result += SubscribedTo.get(i).getUserName();
+		}
 		return result;
 	}
 	
 	public ArrayList<Account> getSubscribers() { return this.Subscribers; }
 	public String printSubscribers() { 
 		String result = "";
-		for (int i = 0; i < this.Subscribers.size(); ++i) result += Subscribers.get(i).getUserName() + ",";
+		for (int i = 0; i < this.Subscribers.size(); ++i) {
+			if (i > 0) result += ",";
+			result += Subscribers.get(i).getUserName();
+		}
 		return result;
 	}
 	
@@ -104,5 +113,9 @@ public class Account {
 		this.Password = p;
 		this.ProfileText = "";
 		this.ProfilePhotoPath = "";
+	}
+	
+	Account(String load) {
+		
 	}
 }

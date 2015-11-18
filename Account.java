@@ -76,12 +76,23 @@ public class Account {
 		return result;
 	}
 	
-	public void subscribe(Account a) { this.SubscribedTo.add(a); }
+	public void subscribe(Account a) { 
+		this.SubscribedTo.add(a);
+		a.Subscribers.add(this);
+	}
+	
 	public void unSubscribe(Account a) {
 		boolean found = false;
 		for (int i = 0; i < this.SubscribedTo.size() && !found; ++i) {
 			if (this.SubscribedTo.get(i).getUserName() == a.getUserName()) {
-				SubscribedTo.remove(i);
+				this.SubscribedTo.remove(i);
+				found = true;
+			}
+		}
+		found = false;
+		for (int i = 0; i < a.Subscribers.size() && !found; ++i) {
+			if (a.Subscribers.get(i).getUserName() == this.getUserName()) {
+				a.Subscribers.remove(i);
 				found = true;
 			}
 		}
@@ -98,11 +109,34 @@ public class Account {
 		else result += ";";
 		if (this.Subscribers != null) result += this.printSubscribers() + ";";
 		else result += ";";
+		result += "\n";
 		System.out.print(result);
+	}
+	
+	public String toString() {
+		String result = this.getUserName() + ";";
+		result += this.getPassword() + ";";
+		result += this.getProfileText() + ";";
+		result += this.getProfilePhotoPath() + ";";
+		if (this.Twits != null) result += this.printTwitIdentifiers() + ";";
+		else result += ";";
+		if (this.SubscribedTo != null)result += this.printSubscribedTo() + ";";
+		else result += ";";
+		if (this.Subscribers != null) result += this.printSubscribers() + ";";
+		else result += ";";
+		result += "\n";
+		return result;
 	}
 	
 	Account() {
 		this.UserName = "default";
+		this.Password = "default";
+		this.ProfileText = "";
+		this.ProfilePhotoPath = "";
+	}
+	
+	Account(String u) {
+		this.UserName = u;
 		this.Password = "default";
 		this.ProfileText = "";
 		this.ProfilePhotoPath = "";
@@ -115,7 +149,36 @@ public class Account {
 		this.ProfilePhotoPath = "";
 	}
 	
-	Account(String load) {
-		
+	Account(String u, String p, String pt, String ppp, String t, String pst, String ps) {
+		this.UserName = u;
+		this.Password = p;
+		this.ProfileText = pt;
+		this.ProfilePhotoPath = ppp;
+		String delimiter = "[,]+";
+		String[] delimited = t.split(delimiter);
+		for (int i = 0; i < delimited.length; ++i) {
+			Twit tempTwit = new Twit();
+			double tempDouble = Double.parseDouble(delimited[i]);
+			tempTwit.setTwitIdentifier(tempDouble);
+			this.Twits.add(tempTwit);
+		}
+		delimiter = "[,]+";
+		delimited = null;
+		delimited = pst.split(delimiter);
+		for (int i = 0; i < delimited.length; ++i) {
+			Account tempAccount = new Account();
+			String tempString = delimited[i];
+			tempAccount.setUserName(tempString);
+			this.SubscribedTo.add(tempAccount);
+		}
+		delimiter = "[,]+";
+		delimited = null;
+		delimited = ps.split(delimiter);
+		for (int i = 0; i < delimited.length; ++i) {
+			Account tempAccount = new Account();
+			String tempString = delimited[i];
+			tempAccount.setUserName(tempString);
+			this.Subscribers.add(tempAccount);
+		}
 	}
 }

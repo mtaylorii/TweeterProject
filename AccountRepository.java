@@ -1,4 +1,3 @@
-package writingTester;
 import java.util.ArrayList;
 import java.io.*;
 

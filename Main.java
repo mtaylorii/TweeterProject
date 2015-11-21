@@ -1,13 +1,85 @@
+package writingTester;
+
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
-public class Main {
+public class Main{
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException{
 		AccountRepository repo = new AccountRepository();
 		
-		Account Chairman_Mao = new Account("Chairman_mao", "china");
+		String loadOption = "1";
+		String saveOption = "2";
+		String viewOption = "3";
+		String addAccount = "4";
+		String deleteAccount = "5";
+		String exitOption = "6";
+		
+		String userOption = "";
+		Scanner userInput = new Scanner(System.in);
+		boolean isValid = false;
+		int timesPrompted = 0;
+		do {
+			isValid = false;
+			while (!isValid) {
+				userOption = null;
+				if (timesPrompted > 0) System.out.println("Incorrect option");
+				System.out.println("Please enter an option\n" + loadOption + " = Load database\n"
+																+ saveOption + " = Save database\n" 
+																+ viewOption +" = View Database\n"
+																+ addAccount + " = Add Account\n" 
+																+ deleteAccount +" = Delete Account\n"
+																+ exitOption + " = Exit");
+				userOption = userInput.next();
+				System.out.println(userOption);
+				if (userOption.equals(loadOption)
+						|| userOption.equals(saveOption)
+						|| userOption.equals(viewOption)
+						|| userOption.equals(exitOption)
+						|| userOption.equals(addAccount)
+						|| userOption.equals(deleteAccount)) isValid = true;
+				if (!isValid) ++timesPrompted;
+			}
+			if (userOption.equals(loadOption)) repo.loadDatabase();
+			else if (userOption.equals(saveOption)) repo.saveDatabase();
+			else if (userOption.equals(viewOption)) repo.printAccounts();
+			else if (userOption.equals(addAccount)) {
+				Account temp =  new Account("temp", "temp");
+				System.out.println("Please enter a user name for the new account:");
+				Scanner AccountScanner = new Scanner(System.in);
+				String AccountInput = null;
+				while (AccountInput != null) {
+					System.out.println("Please enter an account name: ");
+					AccountInput = AccountScanner.next();
+				}
+				temp.setUserName(AccountInput);
+				AccountInput = null;
+				while (AccountInput != null) {
+					System.out.println("Please enter an account password: ");
+					AccountInput = AccountScanner.next();
+				}
+				temp.setPassword(AccountInput);
+				AccountInput = null;
+				repo.addAccount(temp);
+				System.out.println("Account created...");
+			}
+			else if (userOption.equals(deleteAccount)) {
+				System.out.println("Please enter the name of the Account to delete:");
+				Scanner AccountScanner = new Scanner(System.in);
+				String AccountInput = null;
+				while (AccountInput != null) {
+					System.out.println("Please enter an account name: ");
+					AccountInput = AccountScanner.next();
+				}
+
+			}
+		} while (!(userOption.equals(exitOption)));
+		
+		
+/*		Account Chairman_Mao = new Account("Chairman_mao", "china");
 		Account Vladimir_Putin = new Account("Vladimir_Putin", "russia");
 		Account Bashful = new Account("Bashful", "dwarf");
 		
@@ -26,7 +98,11 @@ public class Main {
 		String loadMao = Chairman_Mao.toString();
 		repo.loadAccount(loadMao);
 		repo.printAccounts();
-		repo.saveDatabase();
+		repo.saveDatabase();*/
 		
+		/*repo.loadDatabase();
+		repo.printAccounts();*/
+
 	}
+
 }

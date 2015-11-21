@@ -1,3 +1,4 @@
+//package writingTester;
 import java.util.ArrayList;
 import java.io.*;
 
@@ -20,8 +21,22 @@ public class AccountRepository {
 		}
 	}
 	
+	public boolean nameUnique(String s) {
+		boolean isUnique = true;
+		for (int i = 0; i < accounts.size(); ++i) {
+			if (accounts.get(i).getUserName().equals(s)) isUnique = false;
+		}
+		return isUnique;
+	}
+	
 	public void printAccounts() {
-		for (int i = 0; i < accounts.size(); ++i) { accounts.get(i).printAccount(); }
+		if (accounts.size() == 0) {
+			System.out.println("Database is empty");
+		}
+		else {
+			for (int i = 0; i < accounts.size(); ++i) accounts.get(i).printAccount();
+		}
+		return;
 	}
 	
 	public void loadAccount(String s) {
@@ -38,6 +53,7 @@ public class AccountRepository {
         try {
         	bw = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < accounts.size(); ++i) bw.write(accounts.get(i).toString());
+            System.out.println("Database saved...");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -53,6 +69,7 @@ public class AccountRepository {
         	while((line = br.readLine()) != null) {
         		loadAccount(line);
         	}
+        	System.out.println("Database loaded...");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

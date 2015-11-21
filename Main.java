@@ -1,3 +1,5 @@
+//package writingTester;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -46,21 +48,33 @@ public class Main{
 			else if (userOption.equals(viewOption)) repo.printAccounts();
 			else if (userOption.equals(addAccount)) {
 				Account temp =  new Account("temp", "temp");
-				System.out.println("Please enter a user name for the new account:");
 				Scanner AccountScanner = new Scanner(System.in);
-				String AccountInput = null;
-				while (AccountInput != null) {
+				String AccountInput = "";
+				boolean validInput = false;
+				boolean emptyInput = false;
+				boolean uniqueName = false;
+				while (!validInput) {
+					uniqueName = false;
+					emptyInput = false;
 					System.out.println("Please enter an account name: ");
 					AccountInput = AccountScanner.next();
+					if (AccountInput == "") emptyInput = true;
+					uniqueName = repo.nameUnique(AccountInput);
+					if (uniqueName && !emptyInput) validInput = true;
+					if (!uniqueName) System.out.println("The account name '" + AccountInput + "' already exists, please choose another name");
 				}
 				temp.setUserName(AccountInput);
-				AccountInput = null;
-				while (AccountInput != null) {
+				AccountInput = "";
+				validInput = false;
+				while (!validInput) {
+					emptyInput = false;
 					System.out.println("Please enter an account password: ");
 					AccountInput = AccountScanner.next();
+					if (AccountInput == "") emptyInput = true;
+					if (!emptyInput) validInput = true;
 				}
 				temp.setPassword(AccountInput);
-				AccountInput = null;
+				AccountInput = "";
 				repo.addAccount(temp);
 				System.out.println("Account created...");
 			}

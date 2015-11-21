@@ -26,9 +26,10 @@ public class Account {
 	* parameter matches any of the user names of the account in the list of subscribers.
 	*/
 	public Boolean searchSubscribers(String search) {
-	for (i = 0; i < Subscribers.size(); i++)
-		if (Subscribers.get(i).getUserName == search) { return true; }
-		else { return false; }
+		for (i = 0; i < Subscribers.size(); i++) {
+			if (Subscribers.get(i).getUserName == search) { return true; }
+			else { return false; }
+		}
 	}
 
 	/**
@@ -36,9 +37,10 @@ public class Account {
 	* parameter matches any of the user names of the account in the list of subscriptions.
 	*/
 	public Boolean searchSubscribedTo(String search) {
-	for (i = 0; i < SubscribedTo.size(); i++)
-		if (SubscribedTo.get(i).getUserName == search) { return true; }
-		else { return false; }
+		for (i = 0; i < SubscribedTo.size(); i++) {
+			if (SubscribedTo.get(i).getUserName == search) { return true; }
+			else { return false; }
+		}
 	}
 
 	public void postTwit(Twit t) {

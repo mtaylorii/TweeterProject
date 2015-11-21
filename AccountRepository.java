@@ -42,7 +42,13 @@ public class AccountRepository {
 	public void loadAccount(String s) {
 		String delimiter = "[;]+";
 		String[] d = s.split(delimiter);
-		Account tempAccount = new Account(d[0], d[1], d[2], d[3], d[4], d[5], d[6]);
+		Account tempAccount = new Account(d[0], d[1]);
+		System.out.println("Array length: " + d.length);
+		if (!(d[2].equals("~"))) tempAccount.setProfileText(d[2]);
+		if (!(d[3].equals("~"))) tempAccount.setProfilePhotoPath(d[3]);
+		if (!(d[4].equals("~"))) tempAccount.processTwits(d[4]);
+		if (!(d[5].equals("~"))) tempAccount.processSubscribedTo(d[5]);
+		if (!(d[6].equals("~"))) tempAccount.processSubscribers(d[6]);
 		accounts.add(tempAccount);
 	}
 	

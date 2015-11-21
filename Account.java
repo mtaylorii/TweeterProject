@@ -128,32 +128,36 @@ public class Account {
 		}
 	}
 	
-	public void printAccount() {
+		public void printAccount() {
 		String result = this.getUserName() + ";";
 		result += this.getPassword() + ";";
-		result += this.getProfileText() + ";";
-		result += this.getProfilePhotoPath() + ";";
-		if (this.Twits != null) result += this.printTwitIdentifiers() + ";";
-		else result += ";";
-		if (this.SubscribedTo != null)result += this.printSubscribedTo() + ";";
-		else result += ";";
-		if (this.Subscribers != null) result += this.printSubscribers() + ";";
-		else result += ";";
+		if (!(this.getProfileText().equals(""))) result += this.getProfileText() + ";";
+		else result += "~;";
+		if (!(this.getProfilePhotoPath().equals(""))) result += this.getProfilePhotoPath() + ";";
+		else result += "~;";
+		if (!(this.Twits.size() == 0)) result += this.printTwitIdentifiers() + ";";
+		else result += "~;";
+		if (!(this.SubscribedTo.size() == 0))result += this.printSubscribedTo() + ";";
+		else result += "~;";
+		if (!(this.Subscribers.size() == 0)) result += this.printSubscribers() + ";";
+		else result += "~;";
 		result += "\n";
-		System.out.print(result);
+		System.out.println(result);
 	}
 	
 	public String toString() {
 		String result = this.getUserName() + ";";
 		result += this.getPassword() + ";";
-		result += this.getProfileText() + ";";
-		result += this.getProfilePhotoPath() + ";";
-		if (this.Twits != null) result += this.printTwitIdentifiers() + ";";
-		else result += ";";
-		if (this.SubscribedTo != null)result += this.printSubscribedTo() + ";";
-		else result += ";";
-		if (this.Subscribers != null) result += this.printSubscribers() + ";";
-		else result += ";";
+		if (!(this.getProfileText().equals(""))) result += this.getProfileText() + ";";
+		else result += "~;";
+		if (!(this.getProfilePhotoPath().equals(""))) result += this.getProfilePhotoPath() + ";";
+		else result += "~;";
+		if (!(this.Twits.size() == 0)) result += this.printTwitIdentifiers() + ";";
+		else result += "~;";
+		if (!(this.SubscribedTo.size() == 0))result += this.printSubscribedTo() + ";";
+		else result += "~;";
+		if (!(this.Subscribers.size() == 0)) result += this.printSubscribers() + ";";
+		else result += "~;";
 		result += "\n";
 		return result;
 	}
@@ -177,6 +181,39 @@ public class Account {
 		this.Password = p;
 		this.ProfileText = "";
 		this.ProfilePhotoPath = "";
+	}
+	
+	public void processTwits(String s) {
+		String delimiter = "[,]+";
+		String[] delimited = s.split(delimiter);
+		for (int i = 0; i < delimited.length; ++i) {
+			Twit tempTwit = new Twit();
+			double tempDouble = Double.parseDouble(delimited[i]);
+			tempTwit.setTwitIdentifier(tempDouble);
+			this.Twits.add(tempTwit);
+		}
+	}
+	
+	public void processSubscribedTo(String s) {
+		String delimiter = "[,]+";
+		String[] delimited = s.split(delimiter);
+		for (int i = 0; i < delimited.length; ++i) {
+			Account tempAccount = new Account();
+			String tempString = delimited[i];
+			tempAccount.setUserName(tempString);
+			this.SubscribedTo.add(tempAccount);
+		}
+	}
+	
+	public void processSubscribers(String s) {
+		String delimiter = "[,]+";
+		String[] delimited = s.split(delimiter);
+		for (int i = 0; i < delimited.length; ++i) {
+			Account tempAccount = new Account();
+			String tempString = delimited[i];
+			tempAccount.setUserName(tempString);
+			this.Subscribers.add(tempAccount);
+		}
 	}
 	
 	Account(String u, String p, String pt, String ppp, String t, String pst, String ps) {

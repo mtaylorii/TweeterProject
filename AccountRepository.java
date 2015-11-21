@@ -21,7 +21,7 @@ public class AccountRepository {
 	}
 	
 	public void printAccounts() {
-		for (int i = 0; i < accounts.size(); ++i) accounts.get(i).printAccount();
+		for (int i = 0; i < accounts.size(); ++i) { accounts.get(i).printAccount(); }
 	}
 	
 	public void loadAccount(String s) {

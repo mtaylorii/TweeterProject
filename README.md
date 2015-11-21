@@ -1,5 +1,5 @@
 #What still needs to be done:
-- GUI
+- GUI (Terminated)
 - Search via #
 - Search for users
 - Send message to another user with @

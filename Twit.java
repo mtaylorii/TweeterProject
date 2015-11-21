@@ -9,6 +9,8 @@ public class Twit {
         private String TwitPoster;
         private String TwitHashtag;
         private String TwitRecipient;
+        // set equal to "anyone" if viewable by anyone, "subscribers" if viewable by subs
+        private String TwitViewers;
         
 	public String getTwitText() { return this.TwitText; }
 	public void setTwitText(String s) { this.TwitText = s; }
@@ -26,9 +28,12 @@ public class Twit {
 
         public String getTwitHashtag() { return this.TwitHashtag; }
         public void setTwitHashtag(String h) { this.TwitHashtag = h; }
-        
+
         public String getTwitRecipient() { return this.TwitRecipient; }
         public void setTwitRecipient(String r) { this.TwitRecipient = r; }
+        
+        public String getTwitViewers() { return this.TwitViewers; }
+        public void setTwitViewers(String v) { this.TwitViewers = v; }
         
 	Twit() {
 		this.TwitText = "default";

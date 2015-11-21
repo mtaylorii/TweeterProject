@@ -1,3 +1,4 @@
+package writingTester;
 import java.util.ArrayList;
 import java.io.*;
 
@@ -32,40 +33,31 @@ public class AccountRepository {
 	}
 	
 	public void saveDatabase() {
-        String fileName = "database.txt";
+        
+        File file = new File("database.txt");
+        BufferedWriter bw = null;
         try {
-        	BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-            for (int i = 0; i < accounts.size(); ++i) {
-            	bw.write(accounts.get(i).toString());
-            	}
-            bw.close();
-        }
-        catch(IOException ex) {
-            System.out.println("Error writing to file '" + fileName + "'");
-            ex.printStackTrace();
-        }
-        finally {
-        	
+        	bw = new BufferedWriter(new FileWriter(file));
+            for (int i = 0; i < accounts.size(); ++i) bw.write(accounts.get(i).toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bw != null) try { bw.close(); } catch (IOException ignore) {}
         }
 	}
 	
 	public void loadDatabase() {
-        String fileName = "database.txt";
-        String line = null;
-
+		String line = "";
+        BufferedReader br = null;
         try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while((line = bufferedReader.readLine()) != null) {
-                loadAccount(line);
-            }   
-            bufferedReader.close();         
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println( "Unable to open file '" + fileName + "'");                
-        }
-        catch(IOException ex) {
-            System.out.println("Error reading file '" + fileName + "'");
+        	br = new BufferedReader(new FileReader("database.txt"));
+        	while((line = br.readLine()) != null) {
+        		loadAccount(line);
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) try { br.close(); } catch (IOException ignore) {}
         }
 	}
 	

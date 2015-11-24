@@ -98,4 +98,60 @@ public class Twit {
 			}
 		}
 	}
+	
+	public String twitToString() { 
+		String result = this.getTwitPoster() + ";"; 
+		result += this.getTwitText() + ";"; 
+		if (!(this.getTwitPhotoPath().equals(""))) result += this.getTwitPhotoPath() + ";"; 
+		else result += "~;"; 
+		if (!(this.getTwitIdentifier().equals(""))) result += this.getTwitIdentifier() + ";"; 
+		else result += "~;"; 
+		if (!(this.getTwitDate().equals(""))) result += this.getTwitDate() + ";"; 
+		else result += "~;"; 
+		if (!(this.getTwitHashtag().equals(""))) result += this.getTwitHashtag() + ";"; 
+		else result += "~;"; 
+		if (!(this.getTwitRecipient().equals(""))) result += this.getTwitRecipient() + ";"; 
+		else result += "~;"; 
+		if (!(this.getTwitViewers().equals(""))) result += this.getTwitViewers() + ";"; 
+		else result += "~;"; 
+		result += "\n"; 
+		return result; 
+	}
+	
+	public void saveTwitDatabase() {
+
+		File file = new File("twitdatabase.txt");
+		BufferedWriter bw = null;
+		try {
+			bw = new BufferedWriter(new FileWriter(file)); 
+			for (int i = 0; i < accounts.size(); ++i) {
+				for (int j = 0; j < Twits.size(); j++) {
+					bw.write(Twits.get(i).twitToString());
+				}
+			}
+			System.out.println("Twit database saved..."); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bw != null) try { bw.close(); } catch (IOException ignore) {} 
+		}
+	}
+	
+	public void loadTwitDatabase() {
+
+		String line = "";
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("twitdatabase.txt"));
+			while((line = br.readLine()) != null) {
+				loadTwit(line);
+			}
+			System.out.println("Twit database loaded...");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) try { br.close(); } catch (IOException ignore) {}
+		}
+	}	
+
 }

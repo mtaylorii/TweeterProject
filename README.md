@@ -34,6 +34,6 @@ New Main:
   - Save database (write users and twit files after every action (?))
 
 - Max: view (public, subscriber, all) twits
-- Cole: view profiles, make twit id second in database list, change who can view to boolean instead of string
+- Cole: view profiles, make twit id second in database list, change who can view to boolean instead of string, work on new main
 - Colton: search
 - Parker: db

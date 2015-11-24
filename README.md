@@ -19,7 +19,8 @@ New Main:
 -     View public messages
 -     Exit
 -     Register
--     View profiles (maybe search for the profiles too)
+-     View profiles (maybe search for the profiles too, see step below)
+-     Search ('@')
 -   Signed in:
 -     Sign out
 -     View all messages

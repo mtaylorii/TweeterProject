@@ -33,10 +33,10 @@ New Main:
     - Save database (write users and twit files after every action (?))
 
 Max:
-view (public, subscribers, all) twits
+- view (public, subscribers, all) twits
 Cole:
-view profiles, change who can view twit data member to boolean, put twit identifier as second in list on database
+- view profiles, change who can view twit data member to boolean, put twit identifier as second in list on database
 Colton:
-search
+- search
 Parker:
-db
+- db

@@ -23,8 +23,8 @@ public class Twit {
 
 	public Timestamp getNewTwitDate() { return new Timestamp(this.TwitDate.getTime()); }
 	// need some sort of  getter and setter for loading and saving the TwitDates of twits from and to the twit database
-	public Timestamp getTwitDate() { return this.TwitDate; }
-	public void setTwitDate(Timestamp td) { this.TwitDate = td; }
+	public Date getTwitDate() { return this.TwitDate; }
+	public void setTwitDate(Date td) { this.TwitDate = td; }
 		
         public String getTwitPoster() { return this.TwitPoster; }
         public void setTwitPoster(String p) { this.TwitPoster = p; }

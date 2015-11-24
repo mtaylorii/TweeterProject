@@ -15,23 +15,23 @@ New Main:
 - create AccountRepository
 - Load database
 - Options:
--   Not signed in:
--     Sign in
--     View public messages
--     Exit
--     Register
--     View profiles (maybe search for the profiles too, see step below)
--     Search ('@')
--   Signed in:
--     Sign out
--     View all messages
--     View only subscribers
--     Post twit/ send message
--     Search ('@' or '#')
--     Edit profile (bio, pic, or delete account)
--     Exit (sign out first)
--     View profiles
--   Save database (write users and twit files after every action (?))
+  - Not signed in:
+    - Sign in
+    - View public messages
+    - Exit
+    - Register
+    - View profiles (maybe search for the profiles too, see step below)
+    - Search ('@')
+  - Signed in:
+    - Sign out
+    - View all messages
+    - View only subscribers
+    - Post twit/ send message
+    - Search ('@' or '#')
+    - Edit profile (bio, pic, or delete account)
+    - Exit (sign out first)
+    - View profiles
+  - Save database (write users and twit files after every action (?))
 
 - Max: view (public, subscriber, all) twits
 - Cole: view profiles, make twit id second in database list, change who can view to boolean instead of string

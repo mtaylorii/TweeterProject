@@ -22,6 +22,8 @@ public class Twit {
 	public void setTwitIdentifier(double d) { this.TwitIdentifier = d; }
 
 	public Timestamp getTwitDate() { return new Timestamp(this.TwitDate.getTime()); }
+	// need some sort of setter for loading the TwitDates of twits from the twit database
+	public void setTwitDate(Timestamp td) { this.TwitDate = td; }
 		
         public String getTwitPoster() { return this.TwitPoster; }
         public void setTwitPoster(String p) { this.TwitPoster = p; }

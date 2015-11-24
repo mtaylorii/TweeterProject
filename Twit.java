@@ -75,4 +75,27 @@ public class Twit {
                 this.TwitRecipient = r;
                 this.TwitPoster = tp;
 	}
+	
+	public void loadTwit(String s) {
+		String delimiter = “[;]+”;
+		String[] d = s.split(delimiter);
+		Account tempAccount = new Account(d[0]);
+		Twit tempTwit = new Twit(d[1]);
+		System.out.println("Array length: " + d.length);
+		if (!(d[0].equals("~"))) tempTwit.setTwitPoster(d[0]); 
+		if (!(d[2].equals("~"))) tempTwit.setTwitPhotoPath(d[2]); 
+		if (!(d[3].equals("~"))) tempTwit.setTwitIdentifier(d[3]); 
+		if (!(d[4].equals("~"))) tempTwit.setTwitDate(d[4]); 
+		if (!(d[5].equals("~"))) tempTwit.setTwitHashtag(d[5]); 
+		if (!(d[6].equals("~"))) tempTwit.setTwitRecipient(d[6]);
+		if (!(d[7].equals("~"))) tempTwit.setTwitViewers(d[7]);
+		// how to reference list of accounts
+		for (int i = 0; i < accounts.size(); ++i) {
+		// Search through list of accounts and find account that matches the temp account username;
+		// If account usernames match, add the tempTwit to that account's list of Twits;
+			if (tempAccount.getUserName == accounts.get(i).getUserName) {
+			accounts.get(i).Twits.add(tempTwit);
+			}
+		}
+	}
 }

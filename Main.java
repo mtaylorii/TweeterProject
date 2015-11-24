@@ -16,7 +16,9 @@ public class Main{
 		String viewOption = "3";
 		String addAccount = "4";
 		String deleteAccount = "5";
-		String exitOption = "6";
+		String signIn = "6";
+		String signOut = "7";
+		String exitOption = "8";
 		
 		String userOption = "";
 		Scanner userInput = new Scanner(System.in);
@@ -27,12 +29,16 @@ public class Main{
 			while (!isValid) {
 				userOption = null;
 				if (timesPrompted > 0) System.out.println("Incorrect option");
-				System.out.println("Please enter an option\n" + loadOption + " = Load database\n"
-																+ saveOption + " = Save database\n" 
-																+ viewOption +" = View Database\n"
-																+ addAccount + " = Add Account\n" 
-																+ deleteAccount +" = Delete Account\n"
-																+ exitOption + " = Exit");
+				if (repo.getSignedIn()) System.out.println("[You are signed in as " + repo.getActiveAccount().getUserName() + "]");
+				System.out.println("Please enter an option\n"
+					+ loadOption + " = Load database\n"
+					+ saveOption + " = Save database\n" 
+					+ viewOption +" = View Database\n"
+					+ addAccount + " = Add Account\n" 
+					+ deleteAccount +" = Delete Account\n"
+					+ signIn +" = Sign In\n"
+					+ signOut +" = Sign Out\n"
+					+ exitOption + " = Exit");
 				userOption = userInput.next();
 				System.out.println(userOption);
 				if (userOption.equals(loadOption)
@@ -40,7 +46,9 @@ public class Main{
 						|| userOption.equals(viewOption)
 						|| userOption.equals(exitOption)
 						|| userOption.equals(addAccount)
-						|| userOption.equals(deleteAccount)) isValid = true;
+						|| userOption.equals(deleteAccount)
+						|| userOption.equals(signIn)
+						|| userOption.equals(signOut))isValid = true;
 				if (!isValid) ++timesPrompted;
 			}
 			if (userOption.equals(loadOption)) repo.loadDatabase();
@@ -79,42 +87,53 @@ public class Main{
 				System.out.println("Account created...");
 			}
 			else if (userOption.equals(deleteAccount)) {
-				System.out.println("Please enter the name of the Account to delete:");
 				Scanner AccountScanner = new Scanner(System.in);
-				String AccountInput = null;
-				while (AccountInput != null) {
+				String AccountInput = "";
+				boolean validInput = false;
+				boolean emptyInput = false;
+				while (!validInput) {
 					System.out.println("Please enter an account name: ");
 					AccountInput = AccountScanner.next();
+					if (AccountInput == "") emptyInput = true;
+					if (!emptyInput) validInput = true;
 				}
-
+				boolean deleted = repo.removeAccount(AccountInput);
+				if (deleted) System.out.println("Account deleted...");
+				else System.out.println("Account could not be deleted...");
+			}
+			else if (userOption.equals(signIn)) {
+				Scanner AccountScanner = new Scanner(System.in);
+				String AccountInput = "";
+				boolean validInput = false;
+				boolean emptyInput = false;
+				boolean uniqueName = false;
+				while (!validInput) {
+					System.out.println("Please enter an account name: ");
+					AccountInput = AccountScanner.next();
+					if (AccountInput == "") emptyInput = true;
+					uniqueName = repo.nameUnique(AccountInput);
+					if (!uniqueName && !emptyInput) validInput = true;
+					if (uniqueName) System.out.println("The account name '" + AccountInput + "' does not exist, please choose another name");
+				}
+				String AccountName = AccountInput;
+				AccountInput = "";
+				validInput = false;
+				boolean matchingPassword = false;
+				while (!validInput) {
+					emptyInput = false;
+					System.out.println("Please enter an account password: ");
+					AccountInput = AccountScanner.next();
+					if (AccountInput == "") emptyInput = true;
+					matchingPassword = repo.matchingPassword(AccountName, AccountInput);
+					if (!emptyInput && matchingPassword) validInput = true;
+					if (!matchingPassword) System.out.println("The password does not match for the specified user");
+				}
+				repo.SignIn(AccountName);
+			}
+			else if (userOption.equals(signOut)) {
+				repo.SignOut();
+				System.out.println("You have signed out...");
 			}
 		} while (!(userOption.equals(exitOption)));
-		
-		
-/*		Account Chairman_Mao = new Account("Chairman_mao", "china");
-		Account Vladimir_Putin = new Account("Vladimir_Putin", "russia");
-		Account Bashful = new Account("Bashful", "dwarf");
-		
-		Chairman_Mao.setProfileText("blahblahblah");
-		Chairman_Mao.setProfilePhotoPath("images/suffering.png");
-		Chairman_Mao.printAccount();
-		Twit maoTwit = new Twit("Labor camps rule");
-		Chairman_Mao.postTwit(maoTwit);
-		Chairman_Mao.subscribe(Vladimir_Putin);
-		Chairman_Mao.subscribe(Bashful);
-		Vladimir_Putin.subscribe(Chairman_Mao);
-		Chairman_Mao.printAccount();
-		Chairman_Mao.unSubscribe(Bashful);
-		Chairman_Mao.printAccount();
-		
-		String loadMao = Chairman_Mao.toString();
-		repo.loadAccount(loadMao);
-		repo.printAccounts();
-		repo.saveDatabase();*/
-		
-		/*repo.loadDatabase();
-		repo.printAccounts();*/
-
 	}
-
 }

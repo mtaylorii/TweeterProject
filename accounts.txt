@@ -1,0 +1,3 @@
+asdf;asdf;poopy;parker.png;0.581009649485135;zxcv,newDude;~;
+zxcv;zxcv;love it;zxcv.jpg;0.17258254285343455;~;asdf;
+newDude;dude;I am a fish;newDude.jpg;~;~;asdf;

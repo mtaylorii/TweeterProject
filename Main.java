@@ -95,7 +95,7 @@ public class Main{
 				}
 				else if (convertedOption == 4) {
 					img.goTime("search.png");
-					//repo.search();
+					repo.search();
 				}
 			}
 			else {
@@ -140,6 +140,7 @@ public class Main{
 				}
 				else if (convertedOption == 9) {
 					img.goTime("search.png");
+					repo.search();
 				}
 				else if (convertedOption == 10) {
 					img.goTime("edit.png");

@@ -470,6 +470,58 @@ public class AccountRepository {
 		}
 	}
 	
+	public void search() {
+		Scanner AccountScanner = new Scanner(System.in);
+		String AccountInput = "";
+		boolean validInput = false;
+		boolean emptyInput = false;
+		boolean uniqueName = false;
+		while (!validInput) {
+			System.out.println(printHeader(" Please enter a search term (# for twits, @ for accounts, ~ to return to menu): "));
+			System.out.print(">>> ");
+			AccountInput = AccountScanner.next();
+			if (AccountInput.equals("~")) return;
+			if (AccountInput == "") emptyInput = true;
+			uniqueName = this.nameUnique(AccountInput.substring(1));
+			if (!uniqueName && !emptyInput) validInput = true;
+			if (!(AccountInput.substring(0, 1).equals("#")) && !(AccountInput.substring(0, 1).equals("@"))) {
+				System.out.println(printHeader("Please prefix your search term with either # or @"));
+				validInput = false;
+			}
+		}	
+		if (uniqueName) System.out.println(printHeader("The account name '" + AccountInput + "' does not exist"));
+		else {
+			boolean found = false;
+			for (int i = 0; i < this.accounts.size() && !found; ++i) {
+				if (accounts.get(i).getUserName().equals(AccountInput.substring(1))) {
+					String header = "";
+					String headerText = " Profile: ";
+					for (int j = 0; j < 100 - headerText.length(); ++j) {
+						header += "*";
+						if (j == (100 - headerText.length())/2) header += headerText;
+					}
+					System.out.println(header);
+					System.out.println("NAME: " + this.accounts.get(i).getUserName());
+					System.out.println("BIO: " + this.accounts.get(i).getProfileText());
+					ASCII img = new ASCII();
+					img.goTime(this.accounts.get(i).getProfilePhotoPath());
+					for (int j = 0; j < 100; ++j) System.out.print("*");
+					System.out.println();
+					found = true;
+					System.out.println(printHeader(" " + accounts.get(i).getUserName() + "'s public twits: "));
+					for (int j = 0; j < accounts.get(i).getTwits().size(); ++j){
+						if (accounts.get(i).getTwits().get(j).getTwitVisibility() == true) {
+							accounts.get(i).getTwits().get(j).printTwit();
+							System.out.println();
+						}
+					}
+					for (int j = 0; j < 100; ++j) System.out.print("*");
+					System.out.println();
+				}
+			}
+		}
+	}
+	
 	public static String printHeader(String s) {
 		String header = "";
 		String headerText = s;

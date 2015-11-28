@@ -1,5 +1,6 @@
 import java.sql.Timestamp;
 import java.util.Date;
+import java.lang.*;
 
 public class Twit {
 	private String TwitText;
@@ -10,7 +11,7 @@ public class Twit {
         private String TwitHashtag;
         private String TwitRecipient;
         // set equal to "anyone" if viewable by anyone, "subscribers" if viewable by subs
-        private String TwitViewers;
+        private boolean TwitPubliclyViewable;
         
 	public String getTwitText() { return this.TwitText; }
 	public void setTwitText(String s) { this.TwitText = s; }
@@ -35,8 +36,9 @@ public class Twit {
         public String getTwitRecipient() { return this.TwitRecipient; }
         public void setTwitRecipient(String r) { this.TwitRecipient = r; }
         
-        public String getTwitViewers() { return this.TwitViewers; }
-        public void setTwitViewers(String v) { this.TwitViewers = v; }
+        public boolean getTwitPubliclyViewable() { return this.TwitPubliclyViewable; }
+        public boolean getTwitPubliclyViewableString() { return Boolean.toString(this.TwitPubliclyViewable); }
+        public void setTwitPubliclyViewable(boolean v) { this.TwitViewers = v; }
         
 	Twit() {
 		this.TwitText = "default";
@@ -89,7 +91,7 @@ public class Twit {
 		if (!(d[4].equals("~"))) tempTwit.setTwitDate(d[4]); 
 		if (!(d[5].equals("~"))) tempTwit.setTwitHashtag(d[5]); 
 		if (!(d[6].equals("~"))) tempTwit.setTwitRecipient(d[6]);
-		if (!(d[7].equals("~"))) tempTwit.setTwitViewers(d[7]);
+		if (!(d[7].equals("~"))) tempTwit.setTwitPubliclyViewable(d[7]);
 		// how to reference list of accounts
 		for (int i = 0; i < accounts.size(); ++i) {
 		// Search through list of accounts and find account that matches the temp account username;
@@ -113,7 +115,7 @@ public class Twit {
 		else result += "~;"; 
 		if (!(this.getTwitRecipient().equals(""))) result += this.getTwitRecipient() + ";"; 
 		else result += "~;"; 
-		if (!(this.getTwitViewers().equals(""))) result += this.getTwitViewers() + ";"; 
+		if (!(this.getTwitPubliclyViewable().equals(""))) result += this.getTwitPubliclyViewableString() + ";"; 
 		else result += "~;"; 
 		result += "\n"; 
 		return result; 

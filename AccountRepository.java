@@ -30,6 +30,8 @@ public class AccountRepository {
 	}
 	
 	public void printAccounts() {
+		Comparator<Account> accountSort = new ComparatorByName;
+		Collections.sort(accounts, accountSort)
 		if (accounts.size() == 0) {
 			System.out.println("Database is empty");
 		}
@@ -81,6 +83,53 @@ public class AccountRepository {
         } finally {
             if (br != null) try { br.close(); } catch (IOException ignore) {}
         }
+	}
+	
+	public void viewAllProfiles() {
+		Comparator<Account> accountSort = new ComparatorByName;
+		Collections.sort(accounts, accountSort)
+		for (int i = 0; i < accounts.size(); i++) {
+			System.out.println(accounts.get(i).getUserName);
+			System.out.println("Personal Information:");
+			System.out.println(accounts.get(i).getProfileText);
+			System.out.println("Profile Photo Path:");
+			System.out.println(accounts.get(i).getProfilePhotoPath);
+			System.out.println();
+		}
+	}
+	
+	public void viewSubscribedToProfiles() {
+		Comparator<Account> accountSort = new ComparatorByName;
+		Collections.sort(accounts, accountSort)
+		for (int i = 0; i < accounts.size(); i++) {
+			// that's how you reference the subscribedto of the current user, right?
+			// i don't need == true, right?
+			if (this.searchSubscribedTo(accounts.get(i).getUserName) == true) {
+				System.out.println(accounts.get(i).getUserName);
+				System.out.println("Personal Information:");
+				System.out.println(accounts.get(i).getProfileText);
+				System.out.println("Profile Photo Path:");
+				System.out.println(accounts.get(i).getProfilePhotoPath);
+				System.out.println();
+			}
+		}
+	}
+	
+	public void viewSubscriberProfiles() {
+		Comparator<Account> accountSort = new ComparatorByName;
+		Collections.sort(accounts, accountSort)
+		for (int i = 0; i < accounts.size(); i++) {
+			// that's how you reference the subscribedto of the current user, right?
+			// i don't need == true, right?
+			if (this.searchSubscribers(accounts.get(i).getUserName) == true) {
+				System.out.println(accounts.get(i).getUserName);
+				System.out.println("Personal Information:");
+				System.out.println(accounts.get(i).getProfileText);
+				System.out.println("Profile Photo Path:");
+				System.out.println(accounts.get(i).getProfilePhotoPath);
+				System.out.println();
+			}
+		}
 	}
 	
 	//* how to reference the current user

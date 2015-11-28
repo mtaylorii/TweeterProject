@@ -133,10 +133,10 @@ public class AccountRepository {
 	}
 	
 	//* how to reference the current user
-	*public void searchHashtag(String hashtag) {
+	*public ArrayList searchHashtag(String hashtag) {
 	*	private ArrayList<Twit> HashtagTwits = new ArrayList<Twit>();
 	*	for (int i = 0; i < accounts.size(); i++) {
-	*		if (accounts.get(i).searchSubscribers(the current user)) {
+	*		if (this.searchSubscribers(accounts.get(i).getUserName)) {
 	*			for (int j = 0; j < Twits.size(); j++) {
 	*				if (Twits.get(j).getTwitHashtag() == hashtag) {
 	*					HashtagTwits.add(Twits.get(j));
@@ -144,11 +144,12 @@ public class AccountRepository {
 	*			}
 	*		}
 	*		else for (int k = 0; k < Twits.size(); k++) {
-	*			if (Twits.get(k).getTwitViewers() == “anyone” &&  Twits.get(k).getTwitHashtag() == hashtag) {
+	*			if (Twits.get(k).getTwitPubliclyViewable() == true && Twits.get(k).getTwitHashtag() == hashtag) {
 	*				HashtagTwits.add(Twits.get(k));
 	*			}
 	*		}
 	*	}
+	*	return HashtagTwits;
 	*}
 	*/
 	

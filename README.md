@@ -1,3 +1,9 @@
+When you guys meet today if you could please take a look at the search code and maybe either figure out or explain
+to me why it won't search through the accounts, that would be fantastic because I can't seem to understand it.
+I've tried for loops, grabbing the name from the database, using contains/equals, and still nothing. Let me know 
+what you guys go over today and if you figure anything new out.
+-Colton
+
 #What still needs to be done:
 - Search via #
 - Search for users/send message to user with @

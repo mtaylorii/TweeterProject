@@ -81,11 +81,11 @@ public class Twit {
 		String delimiter = “[;]+”;
 		String[] d = s.split(delimiter);
 		Account tempAccount = new Account(d[0]);
-		Twit tempTwit = new Twit(d[1]);
+		Twit tempTwit = new Twit(d[2]);
 		System.out.println("Array length: " + d.length);
-		if (!(d[0].equals("~"))) tempTwit.setTwitPoster(d[0]); 
-		if (!(d[2].equals("~"))) tempTwit.setTwitPhotoPath(d[2]); 
-		if (!(d[3].equals("~"))) tempTwit.setTwitIdentifier(d[3]); 
+		if (!(d[0].equals("~"))) tempTwit.setTwitPoster(d[0]);
+		if (!(d[3].equals("~"))) tempTwit.setTwitIdentifier(d[1]); 
+		if (!(d[2].equals("~"))) tempTwit.setTwitPhotoPath(d[3]); 
 		if (!(d[4].equals("~"))) tempTwit.setTwitDate(d[4]); 
 		if (!(d[5].equals("~"))) tempTwit.setTwitHashtag(d[5]); 
 		if (!(d[6].equals("~"))) tempTwit.setTwitRecipient(d[6]);

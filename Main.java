@@ -19,6 +19,7 @@ public class Main{
 		String signIn = "6";
 		String signOut = "7";
 		String exitOption = "8";
+		String searchOption = "9";
 		
 		String userOption = "";
 		Scanner userInput = new Scanner(System.in);
@@ -38,7 +39,8 @@ public class Main{
 					+ deleteAccount +" = Delete Account\n"
 					+ signIn +" = Sign In\n"
 					+ signOut +" = Sign Out\n"
-					+ exitOption + " = Exit");
+					+ exitOption + " = Exit\n"
+					+ searchOption + " = Search");
 				userOption = userInput.next();
 				System.out.println(userOption);
 				if (userOption.equals(loadOption)
@@ -48,6 +50,7 @@ public class Main{
 						|| userOption.equals(addAccount)
 						|| userOption.equals(deleteAccount)
 						|| userOption.equals(signIn)
+						|| userOption.equals(searchOption)
 						|| userOption.equals(signOut))isValid = true;
 				if (!isValid) ++timesPrompted;
 			}
@@ -133,6 +136,9 @@ public class Main{
 			else if (userOption.equals(signOut)) {
 				repo.SignOut();
 				System.out.println("You have signed out...");
+			}
+			else if (userOption.equals(searchOption)){
+				repo.searchOption();
 			}
 		} while (!(userOption.equals(exitOption)));
 	}

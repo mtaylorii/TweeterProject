@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Scanner;
 
 public class AccountRepository {
 	private ArrayList<Account> accounts = new ArrayList<Account>();
@@ -134,5 +135,22 @@ public class AccountRepository {
             if (br != null) try { br.close(); } catch (IOException ignore) {}
         }
 	}
-	
+
+	public void searchOption(){
+		Scanner input = new Scanner(System.in);
+		System.out.println("What would you like to search for?");
+		String search = input.next();
+		if (search.contains("@")){
+			String str = search.replace('@', ' ');
+			if (accounts.contains(str)) {    // I can't figure out how to search through the database.
+				System.out.println("Searching kinda works.");
+			}
+			else {
+				System.out.println("That user does not exist.");
+			}
+		}
+		else if (search.contains("#")){
+			System.out.println("Hashtags are dumb.");
+		}
+	}
 }

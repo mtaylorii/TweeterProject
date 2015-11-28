@@ -156,18 +156,18 @@ public class AccountRepository {
 	
 	public ArrayList searchHashtag(String hashtag) {
                 String h = hashtag;
-		private ArrayList<Twit> hashtagTwits = new ArrayList<Twit>();
+		ArrayList<Twit> hashtagTwits = new ArrayList<Twit>();
 		for (int i = 0; i < accounts.size(); i++) {
-			if (this.searchSubscribers(accounts.get(i).getUserName)) {
-				for (int j = 0; j < Twits.size(); j++) {
-					if (Twits.get(j).getTwitHashtag() == h) {
-						hashtagTwits.add(Twits.get(j));
+			if (accounts.get(i).searchSubscribers(accounts.get(i).getUserName())) {
+				for (int j = 0; j < accounts.get(i).getTwits().size(); j++) {
+					if (accounts.get(i).getTwits().get(j).getTwitHashtag() == h) {
+						hashtagTwits.add(accounts.get(i).getTwits().get(j));
 					}
 				}
 			}
-			else for (int k = 0; k < Twits.size(); k++) {
-				if (Twits.get(k).getTwitPubliclyViewable() == true && Twits.get(k).getTwitHashtag() == h) {
-					hashtagTwits.add(Twits.get(k));
+			else for (int k = 0; k < accounts.get(i).getTwits().size(); k++) {
+				if (accounts.get(i).getTwits().get(k).getTwitPubliclyViewable() == true && accounts.get(i).getTwits().get(k).getTwitHashtag() == h) {
+					hashtagTwits.add(accounts.get(i).getTwits().get(k));
 				}
 			}
 		}

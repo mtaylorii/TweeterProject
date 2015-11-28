@@ -153,4 +153,24 @@ public class AccountRepository {
 			System.out.println("Hashtags are dumb.");
 		}
 	}
+	
+	public ArrayList searchHashtag(String hashtag) {
+                String h = hashtag;
+		private ArrayList<Twit> hashtagTwits = new ArrayList<Twit>();
+		for (int i = 0; i < accounts.size(); i++) {
+			if (this.searchSubscribers(accounts.get(i).getUserName)) {
+				for (int j = 0; j < Twits.size(); j++) {
+					if (Twits.get(j).getTwitHashtag() == h) {
+						hashtagTwits.add(Twits.get(j));
+					}
+				}
+			}
+			else for (int k = 0; k < Twits.size(); k++) {
+				if (Twits.get(k).getTwitPubliclyViewable() == true && Twits.get(k).getTwitHashtag() == h) {
+					hashtagTwits.add(Twits.get(k));
+				}
+			}
+		}
+		return hashtagTwits;
+	}
 }

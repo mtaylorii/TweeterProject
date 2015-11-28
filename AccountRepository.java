@@ -483,14 +483,18 @@ public class AccountRepository {
 			if (AccountInput.equals("~")) return;
 			if (AccountInput == "") emptyInput = true;
 			uniqueName = this.nameUnique(AccountInput.substring(1));
+			if (AccountInput.substring(0, 1).equals("#")) uniqueName = false;
 			if (!uniqueName && !emptyInput) validInput = true;
 			if (!(AccountInput.substring(0, 1).equals("#")) && !(AccountInput.substring(0, 1).equals("@"))) {
 				System.out.println(printHeader("Please prefix your search term with either # or @"));
 				validInput = false;
 			}
+			if (uniqueName) {
+				System.out.println(printHeader("The account name '" + AccountInput + "' does not exist"));
+				return;
+			}
 		}	
-		if (uniqueName) System.out.println(printHeader("The account name '" + AccountInput + "' does not exist"));
-		else {
+		if (AccountInput.substring(0, 1).equals("@")){
 			boolean found = false;
 			for (int i = 0; i < this.accounts.size() && !found; ++i) {
 				if (accounts.get(i).getUserName().equals(AccountInput.substring(1))) {
@@ -519,6 +523,21 @@ public class AccountRepository {
 					System.out.println();
 				}
 			}
+		}
+		else if (AccountInput.substring(0, 1).equals("#")){
+			boolean found = false;
+			for (int i = 0; i < accounts.size(); ++i) {
+				for (int j = 0; j < accounts.get(i).getTwits().size(); ++j) {
+					if (accounts.get(i).getTwits().get(j).hasTerm(AccountInput)) {
+						System.out.println(printHeader(accounts.get(i).getTwits().get(j).getTwitAuthor() + ":"));
+						accounts.get(i).getTwits().get(j).printTwit();
+						for (int k = 0; k < 100; ++k) System.out.print("*");
+						System.out.println();
+						found = true;
+					}
+				}
+			}
+			if (!found) System.out.println(printHeader("Could not find any twits containing '" + AccountInput +"' "));
 		}
 	}
 	

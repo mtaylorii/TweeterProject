@@ -22,12 +22,23 @@ public class Twit {
 	public String getTwitAuthor() { return this.TwitAuthor; }
 	public void setTwitAuthor(String s) { this.TwitAuthor = s; }
 	
+	public boolean hasTerm(String s) { return this.TwitText.contains(s); }
+	
 	public String toString() {
 		String result = "";
 		result += this.TwitIdentifier + ";"
 				+ this.TwitText + ";"
 				+ this.TwitPhotoPath + ";"
 				+ this.TwitVisibility + ";";
+		return result;
+	}
+	
+	public String toString2() {
+		String result = "INFO:";
+		result += this.TwitIdentifier + ";"
+				+ this.TwitText + ";"
+				+ this.TwitVisibility + ";\n"
+				+ this.TwitPhotoPath + ";";
 		return result;
 	}
 	

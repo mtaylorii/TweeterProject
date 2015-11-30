@@ -103,7 +103,12 @@ public class AccountRepository {
 		System.out.println(printHeader("[" + this.getActiveAccount().getUserName() + " has been signed out]"));
 		this.ActiveAccount = new Account();
 	}
-	
+
+	/**
+	 * Makes sure the userName is not a duplicate of another.
+	 * @param s the username of the account.
+	 * @return if the name is unique to the user.
+     */
 	public boolean nameUnique(String s) {
 		boolean isUnique = true;
 		for (int i = 0; i < accounts.size(); ++i) {
@@ -111,7 +116,13 @@ public class AccountRepository {
 		}
 		return isUnique;
 	}
-	
+
+	/**
+	 * Makes sure the password entered corresponds to the correct user.
+	 * @param s the username of the account.
+	 * @param p the password of the account.
+     * @return if the password matches the user's account password.
+     */
 	public boolean matchingPassword(String s, String p) {
 		boolean match = false;
 		for (int i = 0; i < accounts.size(); ++i) {
@@ -119,7 +130,12 @@ public class AccountRepository {
 		}
 		return match;
 	}
-	
+
+	/**
+	 *  This method prompts the user to search for another user that
+	 *  they wish to subscribe to, identifies whether or not that user
+	 *  exists, and then links the user account to the subscribed account.
+	 */
 	public void subscribe() {
 		Scanner AccountScanner = new Scanner(System.in);
 		String AccountInput = "";
@@ -145,7 +161,13 @@ public class AccountRepository {
 			}
 		}
 	}
-	
+
+	/**
+	 *  This method prompts the user to search for another user that
+	 *  they wish to unsubscribe to, identifies whether or not that user
+	 *  exists within their subscribers, and then deletes the links that
+	 *  connects the two users.
+	 */
 	public void unsubscribe() {
 		Scanner AccountScanner = new Scanner(System.in);
 		String AccountInput = "";
@@ -171,7 +193,12 @@ public class AccountRepository {
 			}
 		}
 	}
-	
+
+	/**
+	 *  This method prints the profiles that contained within the database;
+	 *  each profile will be displayed with a name, bio, number of subscribers,
+	 *  and who they are subscribed to. Otherwise it is emptied.
+	 */
 	public void printAccountProfiles2() {
 		if (accounts.size() == 0) {
 			System.out.println(printHeader("Database is empty"));

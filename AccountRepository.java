@@ -6,20 +6,44 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
+/**
+ * Class AccountRepository maintains accounts.
+ */
+
 public class AccountRepository {
 	private ArrayList<Account> accounts = new ArrayList<Account>();
 	
-	private boolean SignedIn = false;
-	private Account ActiveAccount;
+	private boolean SignedIn = false; //no user is currently signed in
+	private Account ActiveAccount; //the account currently signed in to
 	
+	/**
+	 * Default constructor for an AccountRepository.
+	 */
 	AccountRepository() {  }
 	
+	/**
+	 * Adds an account to the Account ArrayList.
+	 * @param a the account to be added
+	 */
 	public void addAccount(Account a) { this.accounts.add(a); }
 	
+	/**
+	 * Accessor method for ActiveAccount.
+	 * @return the active account
+	 */
 	public Account getActiveAccount() { return this.ActiveAccount; }
 	
+	
+	/**
+	 * Accessor method for SignedIn.
+	 * @return true if a user is currently signed in, false if not
+	 */
 	public boolean getSignedIn() { return this.SignedIn; }
 	
+	/**
+	 * Prompts a user to sign into an account.
+	 * @return if the database is empty
+	 */
 	public void signIn() {
 		if (this.accounts.size() == 0) {
 			System.out.println(printHeader(" Database is empty. Please register first "));
@@ -58,12 +82,20 @@ public class AccountRepository {
 		this.signIn(AccountName);
 	}
 	
+	/**
+	 * Signs a user into an account given an Account object, giving them access to the data of the account and the ability to manipulate it.
+	 * @param a the account to be signed into
+	 */
 	public void signIn(Account a) {
 		this.SignedIn = true;
 		this.ActiveAccount = a;
 		System.out.println(printHeader("[You are signed in as " + this.getActiveAccount().getUserName() + "]"));
 	}
 	
+	/**
+	 * Signs a user into an account given the username of an Account object.
+	 * @param s the username of an Account to be signed into
+	 */
 	public void signIn(String s) {
 		this.SignedIn = true;
 		for (int i = 0; i < this.accounts.size(); ++i) {
@@ -74,12 +106,20 @@ public class AccountRepository {
 		System.out.println(printHeader("[You are signed in as " + this.getActiveAccount().getUserName() + "]"));
 	}
 	
+	/**
+	 * Signs the user out of the account currently signed into
+	 */
 	public void signOut() {
 		this.SignedIn = false;
 		System.out.println(printHeader("[" + this.getActiveAccount().getUserName() + " has been signed out]"));
 		this.ActiveAccount = new Account();
 	}
 	
+	/**
+	 * Removes an account from the account repository given the Account object to be removed.
+	 * @param a the Account object to be removed
+	 * @return true if the account was found and removed, false if not
+	 */
 	public boolean removeAccount(Account a) {
 		boolean found = false;
 		boolean result = false;
@@ -93,6 +133,11 @@ public class AccountRepository {
 		return result;
 	}
 	
+	/**
+	 * Removes an account from the account repository given the username of the Account object to be removed.
+	 * @param s the username of the Account object to be removed
+	 * @return true if the account was found and removed, false if not
+	 */
 	public boolean removeAccount(String s) {
 		boolean found = false;
 		boolean result = false;

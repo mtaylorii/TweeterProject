@@ -1,4 +1,4 @@
-package writingTester;
+//package writingTester;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,12 +57,7 @@ public class AccountRepository {
 		}
 		this.signIn(AccountName);
 	}
-	
-	public void signIn(Account a) {
-		this.SignedIn = true;
-		this.ActiveAccount = a;
-		System.out.println(printHeader("[You are signed in as " + this.getActiveAccount().getUserName() + "]"));
-	}
+
 	
 	public void signIn(String s) {
 		this.SignedIn = true;
@@ -78,32 +73,6 @@ public class AccountRepository {
 		this.SignedIn = false;
 		System.out.println(printHeader("[" + this.getActiveAccount().getUserName() + " has been signed out]"));
 		this.ActiveAccount = new Account();
-	}
-	
-	public boolean removeAccount(Account a) {
-		boolean found = false;
-		boolean result = false;
-		for (int i = 0; i < this.accounts.size() && !found; ++i) {
-			if (accounts.get(i).getUserName().equals(a.getUserName())) {
-				accounts.remove(i);
-				found = true;
-				result = true;
-			}
-		}
-		return result;
-	}
-	
-	public boolean removeAccount(String s) {
-		boolean found = false;
-		boolean result = false;
-		for (int i = 0; i < this.accounts.size() && !found; ++i) {
-			if (accounts.get(i).getUserName().equals(s)) {
-				accounts.remove(accounts.get(i));
-				found = true;
-				result = true;
-			}
-		}
-		return result;
 	}
 	
 	public boolean nameUnique(String s) {
@@ -174,41 +143,6 @@ public class AccountRepository {
 		}
 	}
 	
-	public void printAccounts() {
-		if (accounts.size() == 0) {
-			System.out.println(printHeader("Database is empty"));
-		}
-		else {
-			for (int i = 0; i < accounts.size(); ++i) accounts.get(i).printAccount();
-		}
-		return;
-	}
-	
-	public void printAccountProfiles() {
-		if (accounts.size() == 0) {
-			System.out.println(printHeader("Database is empty"));
-		}
-		else {
-			for (int i = 0; i < accounts.size(); ++i) {
-				String header = "";
-				String headerText = " Profile: ";
-				for (int j = 0; j < 100 - headerText.length(); ++j) {
-					header += "*";
-					if (j == (100 - headerText.length())/2) header += headerText;
-				}
-				System.out.println(header);
-				System.out.println("NAME: " + accounts.get(i).getUserName());
-				System.out.println("BIO: " + accounts.get(i).getProfileText());
-				System.out.println("# SUBSCRIBED TO: " + accounts.get(i).getSubscribedTo().size());
-				System.out.println("# SUBSCRIBERS: " + accounts.get(i).getSubscribers().size());
-				ASCII img = new ASCII();
-				img.goTime(accounts.get(i).getProfilePhotoPath());
-				for (int j = 0; j < 100; ++j) System.out.print("*");
-				System.out.println();
-			}
-		}
-	}
-	
 	public void printAccountProfiles2() {
 		if (accounts.size() == 0) {
 			System.out.println(printHeader("Database is empty"));
@@ -263,97 +197,6 @@ public class AccountRepository {
 				//System.out.println("ADDED");
 			}
 		}
-	}
-	
-	public void saveAccounts() {
-        File file = new File("accounts.txt");
-        BufferedWriter bw = null;
-        try {
-        	bw = new BufferedWriter(new FileWriter(file));
-            for (int i = 0; i < accounts.size(); ++i) bw.write(accounts.get(i).toString());
-            //System.out.println("Accounts saved...");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bw != null) try { bw.close(); } catch (IOException ignore) {}
-        }
-	}
-	
-	public void loadAccounts() {
-		String line = "";
-        BufferedReader br = null;
-        try {
-        	br = new BufferedReader(new FileReader("accounts.txt"));
-        	while((line = br.readLine()) != null) {
-        		loadAccount(line);
-        	}
-        	for (int i = 0; i < this.accounts.size(); ++i) {
-        		for (int j = 0; j < accounts.get(i).getSubscribers().size(); ++j) {
-        			for (int k = 0; k < this.accounts.size(); ++k) {
-        				if (accounts.get(i).getSubscribers().get(j).getUserName().equals(this.accounts.get(k).getUserName())) {
-        					this.accounts.get(i).getSubscribers().set(j, this.accounts.get(k));
-        				}
-        			}
-        		}
-        	}
-        	for (int i = 0; i < this.accounts.size(); ++i) {
-        		for (int j = 0; j < accounts.get(i).getSubscribedTo().size(); ++j) {
-        			for (int k = 0; k < this.accounts.size(); ++k) {
-        				if (accounts.get(i).getSubscribedTo().get(j).getUserName().equals(this.accounts.get(k).getUserName())) {
-        					this.accounts.get(i).getSubscribedTo().set(j, this.accounts.get(k));
-        				}
-        			}
-        		}
-        	}
-        	//System.out.println("Accounts loaded...");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) try { br.close(); } catch (IOException ignore) {}
-        }
-	}
-	
-	public void saveTwits() {
-        File file = new File("twits.txt");
-        BufferedWriter bw = null;
-        try {
-        	bw = new BufferedWriter(new FileWriter(file));
-            for (int i = 0; i < accounts.size(); ++i) {
-            	 bw.write("ACCOUNT: " + accounts.get(i).getUserName() + "\n");
-            	for (int j = 0; j < accounts.get(i).getTwits().size(); ++j) bw.write(accounts.get(i).getTwits().get(j).toString() + "\n");
-            }
-            //System.out.println("Twits saved...");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bw != null) try { bw.close(); } catch (IOException ignore) {}
-        }
-	}
-	
-	public void loadTwits() {
-		String line = "";
-		String twitAuthor = "";
-		String twitInfo = "";
-		boolean readAuthor = false;
-        BufferedReader br = null;
-        try {
-        	br = new BufferedReader(new FileReader("twits.txt"));
-        	while((line = br.readLine()) != null) {
-        		readAuthor = false;
-        		//System.out.println("LOAD TWIT OUTPUT: " + line);
-        		if (line.substring(0, 9).equals("ACCOUNT: ")) {
-        			twitAuthor = line.substring(9, line.length());
-        			readAuthor = true;
-        		}
-        		else twitInfo = line;
-        		if (!readAuthor) loadTwit(twitAuthor, twitInfo);
-        	}
-        	//System.out.println("Twits loaded...");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) try { br.close(); } catch (IOException ignore) {}
-        }
 	}
 	
 	public void saveEverything() {
@@ -560,44 +403,6 @@ public class AccountRepository {
 		System.out.println("Account created...");
 	}
 	
-	public void viewAllTwits() {
-		for (int i = 0; i < accounts.size(); ++i) {
-			System.out.println(printHeader(" " + accounts.get(i).getUserName() + "'s twits: "));
-			for (int j = 0; j < accounts.get(i).getTwits().size(); ++j) {
-				accounts.get(i).getTwits().get(j).printTwit();
-				System.out.println();
-			}
-			for (int j = 0; j < 100; ++j) System.out.print("*");
-			System.out.println();
-		}
-	}
-	
-	public void viewPublicTwits() {
-		for (int i = 0; i < accounts.size(); ++i) {
-			System.out.println(printHeader(" " + accounts.get(i).getUserName() + "'s public twits: "));
-			for (int j = 0; j < accounts.get(i).getTwits().size(); ++j){
-				if (accounts.get(i).getTwits().get(j).getTwitVisibility() == true) {
-					accounts.get(i).getTwits().get(j).printTwit();
-					System.out.println();
-				}
-			}
-			for (int j = 0; j < 100; ++j) System.out.print("*");
-			System.out.println();
-		}
-	}
-	
-	public void viewAllTwits2() {
-		for (int i = 0; i < accounts.size(); ++i) {
-			System.out.println(printHeader(" " + accounts.get(i).getUserName() + "'s twits: "));
-			for (int j = 0; j < accounts.get(i).getTwits().size(); ++j) {
-				accounts.get(i).getTwits().get(j).printTwit2();
-				System.out.println();
-			}
-			for (int j = 0; j < 100; ++j) System.out.print("*");
-			System.out.println();
-		}
-	}
-	
 	public void viewPublicTwits2() {
 		for (int i = 0; i < accounts.size(); ++i) {
 			System.out.println(printHeader(" " + accounts.get(i).getUserName() + "'s public twits: "));
@@ -609,54 +414,6 @@ public class AccountRepository {
 			}
 			for (int j = 0; j < 100; ++j) System.out.print("*");
 			System.out.println();
-		}
-	}
-	
-	public void viewSubscribers() {
-		if (this.getActiveAccount().getSubscribers().size() == 0) {
-			System.out.println(printHeader("No Subscribers"));
-		}
-		else {
-			for (int i = 0; i < this.getActiveAccount().getSubscribers().size(); ++i) {
-				String header = "";
-				String headerText = " Profile: ";
-				for (int j = 0; j < 100 - headerText.length(); ++j) {
-					header += "*";
-					if (j == (100 - headerText.length())/2) header += headerText;
-				}
-				System.out.println(header);
-				System.out.println("NAME: " + this.getActiveAccount().getSubscribers().get(i).getUserName());
-				System.out.println("BIO: " + this.getActiveAccount().getSubscribers().get(i).getProfileText());
-				ASCII img = new ASCII();
-				img.goTime(this.getActiveAccount().getSubscribers().get(i).getProfilePhotoPath());
-				for (int j = 0; j < 100; ++j) System.out.print("*");
-				System.out.println();
-			}
-		}
-	}
-	
-	public void viewSubscribedTo() {
-		if (this.getActiveAccount().getSubscribedTo().size() == 0) {
-			System.out.println(printHeader("No accounts subscribed to"));
-		}
-		else {
-			for (int i = 0; i < this.getActiveAccount().getSubscribedTo().size(); ++i) {
-				String header = "";
-				String headerText = " Profile: ";
-				for (int j = 0; j < 100 - headerText.length(); ++j) {
-					header += "*";
-					if (j == (100 - headerText.length())/2) header += headerText;
-				}
-				System.out.println(header);
-				System.out.println("NAME: " + this.getActiveAccount().getSubscribedTo().get(i).getUserName());
-				System.out.println("BIO: " + this.getActiveAccount().getSubscribedTo().get(i).getProfileText());
-				System.out.println("# SUBSCRIBED TO: " + this.getActiveAccount().getSubscribedTo().get(i).getSubscribedTo().size());
-				System.out.println("# SUBSCRIBERS: " + this.getActiveAccount().getSubscribedTo().get(i).getSubscribers().size());
-				ASCII img = new ASCII();
-				img.goTime(this.getActiveAccount().getSubscribedTo().get(i).getProfilePhotoPath());
-				for (int j = 0; j < 100; ++j) System.out.print("*");
-				System.out.println();
-			}
 		}
 	}
 	
@@ -700,23 +457,6 @@ public class AccountRepository {
 				System.out.println("# SUBSCRIBED TO: " + this.getActiveAccount().getSubscribedTo().get(i).getSubscribedTo().size());
 				System.out.println("# SUBSCRIBERS: " + this.getActiveAccount().getSubscribedTo().get(i).getSubscribers().size());
 				System.out.println(this.getActiveAccount().getSubscribedTo().get(i).getProfilePhotoPath());
-				for (int j = 0; j < 100; ++j) System.out.print("*");
-				System.out.println();
-			}
-		}
-	}
-	
-	public void viewSubscribedToTwits() {
-		if (this.getActiveAccount().getSubscribedTo().size() == 0) {
-			System.out.println(printHeader("No accounts subscribed to"));
-		}
-		else {
-			for (int i = 0; i < this.getActiveAccount().getSubscribedTo().size(); ++i) {
-				System.out.println(printHeader(" " + this.getActiveAccount().getSubscribedTo().get(i).getUserName() + "'s twits: "));
-				for (int j = 0; j < this.getActiveAccount().getSubscribedTo().get(i).getTwits().size(); ++j) {
-					this.getActiveAccount().getSubscribedTo().get(i).getTwits().get(j).printTwit();
-					System.out.println();
-				}
 				for (int j = 0; j < 100; ++j) System.out.print("*");
 				System.out.println();
 			}

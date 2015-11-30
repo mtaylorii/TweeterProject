@@ -1,4 +1,4 @@
-package writingTester;
+//package writingTester;
 
 public class Twit {
 	private String TwitAuthor;

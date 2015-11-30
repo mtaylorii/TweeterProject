@@ -1,4 +1,4 @@
-package writingTester;
+//package writingTester;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

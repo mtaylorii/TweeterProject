@@ -97,7 +97,7 @@ public class Main{
 				}
 				else if (convertedOption == 1) {
 					img.goTime("alltwits.png");
-					repo.viewAllTwits2();
+					repo.viewPublicTwits2();
 				}
 				else if (convertedOption == 2) {
 					img.goTime("subscribertwits.png");

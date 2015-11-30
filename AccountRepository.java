@@ -222,49 +222,28 @@ public class AccountRepository {
 			}
 		}
 	}
-	
-	public void loadAccount(String s) {
-		String delimiter = "[;]+";
-		String[] d = s.split(delimiter);
-		Account tempAccount = new Account(d[0], d[1]);
-		//System.out.println("Array length: " + d.length);
-		if (!(d[2].equals("~"))) tempAccount.setProfileText(d[2]);
-		if (!(d[3].equals("~"))) tempAccount.setProfilePhotoPath(d[3]);
-		//if (!(d[4].equals("~"))) tempAccount.processTwits(d[4]);
-		if (!(d[5].equals("~"))) tempAccount.processSubscribedTo(d[5]);
-		if (!(d[6].equals("~"))) tempAccount.processSubscribers(d[6]);
-		accounts.add(tempAccount);
-	}
-	
-	public void loadTwit(String author, String info) {
-		String delimiter = "[;]+";
-		String[] d = info.split(delimiter);
-		Twit tempTwit = new Twit();
-		tempTwit.setTwitAuthor(author);
-		tempTwit.setTwitIdentifier(Double.parseDouble(d[0]));
-		tempTwit.setTwitText(d[1]);
-		tempTwit.setTwitPhotoPath(d[2]);
-		tempTwit.setTwitVisibility(Boolean.parseBoolean(d[3]));
-		boolean found = false;
-		for (int i = 0; i < this.accounts.size() && !found; ++i) {
-			if (accounts.get(i).getUserName().equals(author)) {
-				accounts.get(i).postTwit(tempTwit);
-				found = true;
-				//System.out.println("ADDED");
-			}
-		}
-	}
-	
+
+	/**
+	 *  Saves the data after every instance.
+	 */
 	public void saveEverything() {
 		saveAccounts2();
 		saveTwits2();
 	}
-	
+
+	/**
+	 *  Loads the data after every instance.
+	 */
 	public void loadEverything() {
 		loadAccounts2();
 		loadTwits2();
 	}
-	
+
+	/**
+	 * Loads the user's account and sets the profile photo.
+	 * @param s the user's account.
+	 * @param img the photo of the user's account.
+     */
 	public void loadAccount2(String s, String img) {
 		String delimiter = "[;]+";
 		String[] d = s.split(delimiter);
@@ -278,7 +257,13 @@ public class AccountRepository {
 		tempAccount.setProfilePhotoPath(img);
 		accounts.add(tempAccount);
 	}
-	
+
+	/**
+	 * Loads the intended twit from a user.
+	 * @param author author of the intended twit.
+	 * @param info the info stored within the twit.
+	 * @param ascii the actual data.
+     */
 	public void loadTwit2(String author, String info, String ascii) {
 		String delimiter = "[;]+";
 		String[] d = info.split(delimiter);

@@ -257,25 +257,6 @@ public class Account {
 		}
 	}
 	/**
-         * Method to print a String of all the information associated with a certain Account object.
-         */
-	public void printAccount() {
-		String result = this.getUserName() + ";";
-		result += this.getPassword() + ";";
-		if (!(this.getProfileText().equals(""))) result += this.getProfileText() + ";";
-		else result += "~;";
-		if (!(this.getProfilePhotoPath().equals(""))) result += this.getProfilePhotoPath() + ";";
-		else result += "~;";
-		if (!(this.Twits.size() == 0)) result += this.printTwitIdentifiers() + ";";
-		else result += "~;";
-		if (!(this.SubscribedTo.size() == 0))result += this.printSubscribedTo() + ";";
-		else result += "~;";
-		if (!(this.Subscribers.size() == 0)) result += this.printSubscribers() + ";";
-		else result += "~;";
-		result += "\n";
-		System.out.println(result);
-	}
-	/**
          * Method to create a String of all the information associated with a certain Account object.
          * @return the String of the information associated with an Account object
          */

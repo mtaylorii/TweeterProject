@@ -297,7 +297,9 @@ public class AccountRepository {
 			}
 		}
 	}
-	
+	/**
+         * Method that writes the information on Account objects into a "accounts2.txt" file, which will serve as a database for the accounts; the information can then be put back into Account objects with the loadAccounts method.
+         */
 	public void saveAccounts2() {
         File file = new File("accounts2.txt");
         BufferedWriter bw = null;
@@ -311,7 +313,9 @@ public class AccountRepository {
             if (bw != null) try { bw.close(); } catch (IOException ignore) {}
         }
 	}
-	
+	/**
+         * Method that reads through the "accounts2.txt" file, which will serve as a database for the accounts, and calls the loadAccount method to put the information associated with the accounts into Account objects.
+         */
 	public void loadAccounts2() {
 		String line = "";
         BufferedReader br = null;
@@ -360,7 +364,9 @@ public class AccountRepository {
             if (br != null) try { br.close(); } catch (IOException ignore) {}
         }
 	}
-	
+	/**
+         * Method that writes the information on Twit objects into a "twits2.txt" file, which will serve as a database for the twits; the information can then be put back into Twit objects with the loadTwits method.
+         */
 	public void saveTwits2() {
         File file = new File("twits2.txt");
         BufferedWriter bw = null;
@@ -377,7 +383,9 @@ public class AccountRepository {
             if (bw != null) try { bw.close(); } catch (IOException ignore) {}
         }
 	}
-	
+	/**
+         * Method that reads through the "twits2.txt" file, which will serve as a database for the twits, and calls the loadTwit method to put the information associated with the twits into Twit objects.
+         */
 	public void loadTwits2() {
 		String line = "";
 		String twitAuthor = "";
@@ -421,7 +429,9 @@ public class AccountRepository {
             if (br != null) try { br.close(); } catch (IOException ignore) {}
         }
 	}
-	
+	/**
+         * Method that allows a user to register an account.
+         */
 	public void register() {
 		Account temp =  new Account("temp", "temp");
 		Scanner AccountScanner = new Scanner(System.in);
@@ -458,7 +468,9 @@ public class AccountRepository {
 		this.addAccount(temp);
 		System.out.println("Account created...");
 	}
-	
+	/**
+         * Method to print all the information associated with any twits that are publicly viewable.
+         */
 	public void viewPublicTwits2() {
 		for (int i = 0; i < accounts.size(); ++i) {
 			System.out.println(printHeader(" " + accounts.get(i).getUserName() + "'s public twits: "));
@@ -472,7 +484,9 @@ public class AccountRepository {
 			System.out.println();
 		}
 	}
-	
+	/**
+         * Method to print all the information associated with all the accounts that are subscribed to the user.
+         */
 	public void viewSubscribers2() {
 		if (this.getActiveAccount().getSubscribers().size() == 0) {
 			System.out.println(printHeader("No Subscribers"));
@@ -494,7 +508,9 @@ public class AccountRepository {
 			}
 		}
 	}
-	
+	/**
+         * Method to print all the information associated with all the accounts the user if subscribed to.
+         */
 	public void viewSubscribedTo2() {
 		if (this.getActiveAccount().getSubscribedTo().size() == 0) {
 			System.out.println(printHeader("No accounts subscribed to"));
@@ -518,7 +534,9 @@ public class AccountRepository {
 			}
 		}
 	}
-	
+	/**
+         * Method to print all the information associated with all the twits for each of the accounts that the user is subscribed to.
+         */
 	public void viewSubscribedToTwits2() {
 		if (this.getActiveAccount().getSubscribedTo().size() == 0) {
 			System.out.println(printHeader("No accounts subscribed to"));
@@ -535,7 +553,9 @@ public class AccountRepository {
 			}
 		}
 	}
-	
+	/**
+	 * Method that allows a user to enter something they would like to search for in twits, whether it be which account posted the twit or what hashtag the twit was posted with.
+	 */
 	public void search() {
 		Scanner AccountScanner = new Scanner(System.in);
 		String AccountInput = "";
@@ -606,7 +626,11 @@ public class AccountRepository {
 			if (!found) System.out.println(printHeader("Could not find any twits containing '" + AccountInput +"' "));
 		}
 	}
-	
+	/**
+         * Method to take a String's text and turn it into a header to be printed that is stored in another String.
+         * @param s the String to be converted into a header and stored in a new String
+         * @return the String containing the parameter String's text as a header
+         */
 	public static String printHeader(String s) {
 		String header = "";
 		String headerText = s;
